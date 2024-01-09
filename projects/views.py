@@ -32,7 +32,7 @@ def add(request):
         if name:
             Project.objects.create(name=name, description=description, created_by=request.user)
 
-            return redirect('/projects/')
+            return redirect('projects:projects')
         else:
             print('Not valid')
 
@@ -52,7 +52,7 @@ def edit(request, pk):
             project.description = description
             project.save()
 
-            return redirect('/projects/')
+            return redirect('projects:projects')
     
     return render(request, 'projects/edit.html', {
         'project': project
@@ -64,10 +64,10 @@ def delete(request, pk):
     project = Project.objects.filter(created_by=request.user).get(pk=pk)
     project.delete()
 
-    return redirect('/projects/')
+    return redirect('projects:projects')
 
 
-# Files
+############################         Files        ##################################
 
 
 @login_required
